@@ -1,0 +1,20 @@
+const express = require("express");
+const {
+  registerInstructor,
+  signInInstructor,
+  registerCurso,
+  updateCurso,
+  getCursos,
+  getCursoById,
+  getCursosByInstructor,
+  deleteCurso,
+  sessionInstructor,
+  updateInstructorProfile // <--- asegúrate de exportarlo desde el controlador
+} = require("../controllers/InstructorController");
+
+const router = express.Router();
+
+// Ruta para actualizar el perfil del instructor
+router.put("/api/instructores/:id", updateInstructorProfile);
+
+module.exports = router;

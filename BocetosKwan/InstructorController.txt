@@ -1,0 +1,44 @@
+// ACTUALIZAR PERFIL DE INSTRUCTOR
+const updateInstructorProfile = async (req, res) => {
+  try {
+    const instructorId = req.params.id;
+    const {
+      tipo_documento,
+      numero_documento,
+      primer_nombre,
+      segundo_nombre,
+      primer_apellido,
+      segundo_apellido,
+      telefono,
+      ocupacion,
+      descripcion_perfil
+    } = req.body;
+
+    let updateFields = [];
+    let updateValues = [];
+
+    if (tipo_documento) updateFields.push("tipo_documento = ?"), updateValues.push(tipo_documento);
+    if (numero_documento) updateFields.push("numero_documento = ?"), updateValues.push(numero_documento);
+    if (primer_nombre) updateFields.push("primer_nombre = ?"), updateValues.push(primer_nombre);
+    if (segundo_nombre) updateFields.push("segundo_nombre = ?"), updateValues.push(segundo_nombre);
+    if (primer_apellido) updateFields.push("primer_apellido = ?"), updateValues.push(primer_apellido);
+    if (segundo_apellido) updateFields.push("segundo_apellido = ?"), updateValues.push(segundo_apellido);
+    if (telefono) updateFields.push("telefono = ?"), updateValues.push(telefono);
+    if (ocupacion) updateFields.push("ocupacion = ?"), updateValues.push(ocupacion);
+    if (descripcion_perfil) updateFields.push("descripcion_perfil = ?"), updateValues.push(descripcion_perfil);
+
+    if (updateFields.length === 0) {
+      return res.status(400).json({ success: false, error: "No se proporcionaron campos a actualizar" });
+    }
+
+    updateValues.push(instructorId);
+    const db = await getConnection();
+    const query = `UPDATE Instructor SET ${updateFields.join(", ")} WHERE id = ?`;
+
+    await db.query(query, updateValues);
+    res.json({ success: true, message: "Perfil del instructor actualizado correctamente" });
+  } catch (err) {
+    console.error("Error al actualizar el perfil del instructor:", err);
+    res.status(500).json({ success: false, error: "Error al actualizar el perfil del instructor" });
+  }
+};
