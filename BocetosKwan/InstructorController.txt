@@ -1,3 +1,61 @@
+// SESION Y DATOS DEL INSTRUCTOR
+const signInInstructor = async (req, res) => {
+  const { email, contrasena } = req.body;
+
+  try {
+    const db = await getConnection();
+
+    const [rows] = await db.query(
+      'SELECT * FROM instructor WHERE email = ? AND contrasena = ?',
+      [email, contrasena]
+    );
+
+    if (rows.length === 0) {
+      return res.status(401).json({ error: "Credenciales inválidas" });
+    }
+
+    const usuario = rows[0];
+
+  req.session.user = {
+    id: usuario.id,
+    tipo_documento: usuario.tipo_documento,
+    numero_documento: usuario.numero_documento,
+    primer_nombre: usuario.primer_nombre,
+    segundo_nombre: usuario.segundo_nombre,
+    primer_apellido: usuario.primer_apellido,
+    segundo_apellido: usuario.segundo_apellido,
+    email: usuario.email,
+    contrasena: usuario.contrasena, 
+    ocupacion: usuario.ocupacion,
+    descripcion_perfil: usuario.descripcion_perfil,
+    rol: 'instructor'
+  };
+
+
+    console.log("🔎 Usuario en sesión (updateCurso):", req.session.user);
+
+    req.session.save(() => {
+      res.json({ message: "Inicio de sesión exitoso", user: req.session.user });
+    });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Error en el servidor" });
+  }
+};
+
+const sessionInstructor = (req, res) => {
+  if (req.session && req.session.user) {
+    console.log("✅ Sesión activa:", req.session.user);
+    res.status(200).json({ session: req.session.user });
+  } else {
+    console.log("❌ No hay sesión activa");
+    res.status(401).json({ error: "No hay sesión activa" });
+  }
+};
+
+
+
 // ACTUALIZAR PERFIL DE INSTRUCTOR
 const updateInstructorProfile = async (req, res) => {
   try {
