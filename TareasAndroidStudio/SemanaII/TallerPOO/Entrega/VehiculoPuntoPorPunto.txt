@@ -1,0 +1,171 @@
+package com.example.myapplication.GestionTransporteUrbano
+
+// Punto 1
+abstract class Vehiculo (val id: String, val capacidad: Int, val velocidadMaxima: Double ) {
+
+    abstract fun moverse()
+    abstract fun detenerse()
+
+    fun infoVehiculo() {
+        println("La placa del auto es ${id}. Tiene una capacidad para ${capacidad} pasajeros y su velocidad maxima es de ${velocidadMaxima}")
+    }
+}
+
+// PUNTO 2
+
+enum class TipoCombustible {
+    GASOLINA,
+    ELECTRICO,
+    HIBRIDO
+}
+
+class Bus(val id: String, val capacidad: Int, val velocidadMaxima: Double, val tipoCombustible: TipoCombustible) : 
+Vehiculo(id, capacidad, velocidadMaxima){
+
+    override fun moverse(){
+        println("El bus esta en movimiento.")
+    }
+
+    override fun detenerse() {
+        println("El bus se ha detenido.")
+    }
+}
+
+class Tren (val id: String, val capacidad: Int, val velocidadMaxima: Double, val tipoCombustible: TipoCombustible) : 
+Vehiculo(id, capacidad, velocidadMaxima){
+
+    override fun moverse(){
+        println("El Tren esta en movimiento.")
+    }
+
+    override fun detenerse() {
+        println("El tren se ha detenido.")
+    }
+}
+
+// PUNTO 3
+
+interface Conectable{
+    fun conectar(){
+        println("Se concectó exitosamente. Comienza ruta de estacion Belen rumbo a la estacion Yumbo")
+    }
+    fun desconectar(){
+        println("Se desconectó exitosamente. Finaliza ruta de la estacion Belen a la estacion Yumbo")
+    }
+}
+
+// PUNTO 4
+
+class Tren(val id: String, val capacidad: Int, val velocidadMaxima: Double, val tipoCombustible: TipoCombustible) : Vehiculo(id, capacidad, velocidadMaxima), Conectable {
+
+    override fun moverse() {
+        println("El tren está en movimiento.")
+    }
+
+    override fun detenerse() {
+        println("El tren se ha detenido.")
+    }
+
+    // Puedes sobreescribir métodos si quieres un comportamiento más específico:
+    override fun conectar() {
+        println("El tren eléctrico se conectó a la estación de carga en Belen.")
+    }
+
+    override fun desconectar() {
+        println("El tren se desconectó de la estación eléctrica en Yumbo.")
+    }
+}
+
+val trenUno = Tren('JAJ-456', 250, 120.0, TipoCombustible.ELECTRICO)
+trenUno.conectar()
+trenUno.desconectar()
+
+// PUNTO 5
+
+class Conductor(val nombre: String, val edad: Int){
+
+    private val vehiculosAsignados = mutableListOf<Vehiculo>()
+    
+    fun asignarVehiculo(vehiculo: Vehiculo) {
+        vehiculosAsignados.add(vehiculo)
+        println("Vehículo con ID ${vehiculo.id} asignado a $nombre.")
+    }
+}
+
+// PUNTO 6 
+
+fun operarVehiculos(vehiculos: List<Vehiculo>) {
+    for (vehiculo in vehiculos) {
+        println("Operando vehículo con ID: ${vehiculo.id}")
+        vehiculo.moverse()
+        vehiculo.detenerse()
+    }
+}
+
+// PUNTO 7
+
+data class Parada(val nombre: String, val esFinal: Boolean = false)
+class Ruta(val paradas: List<Parada>, val vehiculo: Vehiculo) {
+
+    fun recorrerRuta() {
+        println("Iniciando recorrido con el vehículo ${vehiculo.id}...")
+        vehiculo.moverse()
+
+        for (parada in paradas) {
+            println("Llegando a la parada: ${parada.nombre}")
+
+            if (parada.esFinal) {
+                println("Parada final alcanzada.")
+                vehiculo.detenerse()
+                break
+            }
+
+            println("Parada intermedia. Continuando recorrido...\n")
+        }
+    }
+}
+
+
+// PUNTO 8
+
+interface Pasajero {
+    fun abordar(vehiculo: Vehiculo) {
+        println("Pasajero abordó el vehículo con ID ${vehiculo.id}.")
+    }
+
+    fun bajar(vehiculo: Vehiculo) {
+        println("Pasajero bajó del vehículo con ID ${vehiculo.id}.")
+    }
+}
+
+// PUNTO 9
+
+class Adulto(val nombre: String) : Pasajero {
+    override fun abordar(vehiculo: Vehiculo) {
+        println("Adulto $nombre abordó el vehículo con ID ${vehiculo.id}.")
+    }
+
+    override fun bajar(vehiculo: Vehiculo) {
+        println("Adulto $nombre bajó del vehículo con ID ${vehiculo.id}.")
+    }
+}
+
+
+class Niño(val nombre: String) : Pasajero {
+    override fun abordar(vehiculo: Vehiculo) {
+        if (vehiculo is Bus) {
+            println("Niño $nombre abordó el bus con ID ${vehiculo.id}.")
+        } else {
+            println("Niño $nombre no puede abordar este tipo de vehículo (${vehiculo::class.simpleName}).")
+        }
+    }
+
+    override fun bajar(vehiculo: Vehiculo) {
+        if (vehiculo is Bus) {
+            println("Niño $nombre bajó del bus con ID ${vehiculo.id}.")
+        } else {
+            println("Niño $nombre no puede bajar porque no abordó este tipo de vehículo.")
+        }
+    }
+}
+

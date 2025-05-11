@@ -1,0 +1,37 @@
+CLASE ABSTRACTA -> abstract class
+
+    Una abstract class puede contener metodos asbtractos (sin cuerpo) o metodos concretos (con cuerpo)
+
+SOBREESCRITURA DE METODOS -> override
+
+    Si una clase abstracta padre tiene metodos asbtractos TODA clase hija debe implementar sus metodos asbtractos.
+    Esto se hace con override y demas estructura
+        
+CLASE ENUMERADA -> enum class
+
+    Una enum class se utiliza para declarar un conjunto fijo de valores constantes, cada una representando un valor único. 
+    Es muy útil cuando tienes un número limitado y bien definido de opciones.
+    
+INTERFACES -> interface
+
+    Es un tipo de clase que define un conjunto de métodos y propiedades sin proporcionar su implementación completa. Esta
+    puede tener metodos abstractos o metodos con implementación. 
+    Sirve como un contrato que una clase debe cumplir para estar en esa interfaz. Por ejemplo, una interfaz es como 
+    una lista de reglas que una clase debe seguir. Es como una receta de cocina que dice: “Para ser un Vehículo, necesitas 
+    poder arrancar y detenerte”.
+
+PARAMETROS
+
+    Es una variable que recibe un constructor o una funcion. Solo existe dentro del ámbito donde fue creado.  
+
+    class Persona(nombre: String) // ← "nombre" aquí es un parámetro del constructor
+
+PROPIEDADES
+
+    Es una variable propia de la clase. Se crea usando val o var.
+
+    class Persona(val nombre: String)
+
+ATRIBUTOS 
+
+    En Kotlin una propiedad y un atributo son lo mismo, o sea, un dato que pertence a un objeto

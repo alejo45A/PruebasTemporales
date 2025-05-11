@@ -1,0 +1,58 @@
+// Punto 1
+Se crea una clase abstracta
+Se crea metodos asbtractos (que no tienen cuerpo)
+Se crea un metodo concreto (que tiene cuerpo)
+
+abstract class Vehiculo (val id: String, val capacidad: Int, val velocidadMaxima: Double ) {
+
+    abstract fun moverse()
+    abstract fun detenerse()
+
+    fun infoVehiculo() {
+        println("La placa del auto es ${id}. Tiene una capacidad para ${capacidad} pasajeros y su velocidad maxima es de ${velocidadMaxima}")
+    }
+}
+
+// Punto 2
+Se crea una clase enumerada para manejar valores fijos
+Se crean 2 clases hijas heredando tanto atributos como metodos de la clase padre 
+
+
+enum class TipoCombustible {
+    GASOLINA,
+    ELECTRICO,
+    HIBRIDO
+}
+
+Se crea la clase hija junto con los atributos que va a tener la clase hija
+
+class Bus(
+    val id: String, 
+    val capacidad: Int, 
+    val velocidadMaxima: Double, 
+    val tipoCombustible: TipoCombustible): 
+
+Se llama al constructor de la clase asbtracta padre. Al llamar a este constructor la clase padre le pasa los tres parámetros que necesita y le heredó a la clase hija
+
+Vehiculo(id, capacidad, velocidadMaxima){
+
+    override fun moverse(){
+        println("El bus esta en movimiento.")
+    }
+
+    override fun detenerse() {
+        println("El bus se ha detenido.")
+    }
+}
+
+class Tren (val id: String, val capacidad: Int, val velocidadMaxima: Double, val tipoCombustible: TipoCombustible) : 
+Vehiculo(id, capacidad, velocidadMaxima){
+
+    override fun moverse(){
+        println("El Tren esta en movimienta una velocidad maxima de ${velocidadMaxima}.")
+    }
+
+    override fun detenerse() {
+        println("El tren con una capacidad de ${capacidad} pasajeros se ha detenido.")
+    }
+}

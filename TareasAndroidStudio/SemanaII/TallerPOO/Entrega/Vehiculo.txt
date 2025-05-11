@@ -1,0 +1,141 @@
+package com.example.myapplication.GestionTransporteUrbano
+
+// --- PUNTO 1: Clase abstracta Vehiculo ---
+abstract class Vehiculo(val id: String, val capacidad: Int, val velocidadMaxima: Double) {
+    abstract fun moverse()
+    abstract fun detenerse()
+
+    fun infoVehiculo() {
+        println("La placa del auto es $id. Tiene una capacidad para $capacidad pasajeros y su velocidad maxima es de $velocidadMaxima")
+    }
+}
+
+// --- PUNTO 2: Enum de TipoCombustible ---
+enum class TipoCombustible {
+    GASOLINA,
+    ELECTRICO,
+    HIBRIDO
+}
+
+// --- PUNTO 3: Interfaz Conectable ---
+interface Conectable {
+    fun conectar() {
+        println("Se conectó exitosamente. Comienza ruta de estación Belén rumbo a la estación Yumbo")
+    }
+
+    fun desconectar() {
+        println("Se desconectó exitosamente. Finaliza ruta de la estación Belén a la estación Yumbo")
+    }
+}
+
+// --- PUNTO 4: Clases Bus y Tren ---
+class Bus(id: String, capacidad: Int, velocidadMaxima: Double, val tipoCombustible: TipoCombustible)
+    : Vehiculo(id, capacidad, velocidadMaxima) {
+
+    override fun moverse() {
+        println("El bus está en movimiento.")
+    }
+
+    override fun detenerse() {
+        println("El bus se ha detenido.")
+    }
+}
+
+class Tren(id: String, capacidad: Int, velocidadMaxima: Double, val tipoCombustible: TipoCombustible)
+    : Vehiculo(id, capacidad, velocidadMaxima), Conectable {
+
+    override fun moverse() {
+        println("El tren está en movimiento.")
+    }
+
+    override fun detenerse() {
+        println("El tren se ha detenido.")
+    }
+
+    override fun conectar() {
+        println("El tren eléctrico se conectó a la estación de carga en Belén.")
+    }
+
+    override fun desconectar() {
+        println("El tren se desconectó de la estación eléctrica en Yumbo.")
+    }
+}
+
+// --- PUNTO 5: Clase Conductor ---
+class Conductor(val nombre: String, val edad: Int) {
+    private val vehiculosAsignados = mutableListOf<Vehiculo>()
+
+    fun asignarVehiculo(vehiculo: Vehiculo) {
+        vehiculosAsignados.add(vehiculo)
+        println("Vehículo con ID ${vehiculo.id} asignado a $nombre.")
+    }
+}
+
+// --- PUNTO 6: Función para polimorfismo ---
+fun operarVehiculos(vehiculos: List<Vehiculo>) {
+    for (vehiculo in vehiculos) {
+        println("Operando vehículo con ID: ${vehiculo.id}")
+        vehiculo.moverse()
+        vehiculo.detenerse()
+    }
+}
+
+// --- PUNTO 7: Ruta y Parada ---
+data class Parada(val nombre: String, val esFinal: Boolean = false)
+
+class Ruta(val paradas: List<Parada>, val vehiculo: Vehiculo) {
+    fun recorrerRuta() {
+        println("Iniciando recorrido con el vehículo ${vehiculo.id}...")
+        vehiculo.moverse()
+
+        for (parada in paradas) {
+            println("Llegando a la parada: ${parada.nombre}")
+            if (parada.esFinal) {
+                println("Parada final alcanzada.")
+                vehiculo.detenerse()
+                break
+            }
+            println("Parada intermedia. Continuando recorrido...\n")
+        }
+    }
+}
+
+// --- PUNTO 8: Interfaz Pasajero ---
+interface Pasajero {
+    fun abordar(vehiculo: Vehiculo) {
+        println("Pasajero abordó el vehículo con ID ${vehiculo.id}.")
+    }
+
+    fun bajar(vehiculo: Vehiculo) {
+        println("Pasajero bajó del vehículo con ID ${vehiculo.id}.")
+    }
+}
+
+// --- PUNTO 9: Clases Adulto y Niño ---
+class Adulto(val nombre: String) : Pasajero {
+    override fun abordar(vehiculo: Vehiculo) {
+        println("Adulto $nombre abordó el vehículo con ID ${vehiculo.id}.")
+    }
+
+    override fun bajar(vehiculo: Vehiculo) {
+        println("Adulto $nombre bajó del vehículo con ID ${vehiculo.id}.")
+    }
+}
+
+class Niño(val nombre: String) : Pasajero {
+    override fun abordar(vehiculo: Vehiculo) {
+        if (vehiculo is Bus) {
+            println("Niño $nombre abordó el bus con ID ${vehiculo.id}.")
+        } else {
+            println("Niño $nombre no puede abordar este tipo de vehículo (${vehiculo::class.simpleName}).")
+        }
+    }
+
+    override fun bajar(vehiculo: Vehiculo) {
+        if (vehiculo is Bus) {
+            println("Niño $nombre bajó del bus con ID ${vehiculo.id}.")
+        } else {
+            println("Niño $nombre no puede bajar porque no abordó este tipo de vehículo.")
+        }
+    }
+}
