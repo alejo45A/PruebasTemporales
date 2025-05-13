@@ -1,0 +1,67 @@
+// Crear vehículos
+    val bus1 = Bus("BUS-101", 40, 80.0, TipoCombustible.GASOLINA)
+    val tren1 = Tren("TREN-301", 100, 120.0, TipoCombustible.ELECTRICO)
+
+    // Registrar vehículos activos
+    CentroControl.registrarVehiculoActivo(bus1)
+    CentroControl.registrarVehiculoActivo(tren1)
+
+    // Crear conductores
+    val conductor1 = Conductor("Carlos", 45)
+    val conductor2 = Conductor("Lucía", 38)
+
+    // Asignar vehículos
+    conductor1.asignarVehiculo(bus1)
+    conductor2.asignarVehiculo(tren1)
+
+    // Crear pasajeros
+    val adulto1 = Adulto("Laura")
+    val niño1 = Niño("Tomás")
+
+    // Crear paradas
+    val paradasBus = listOf(
+        Parada("Estación Sur"),
+        Parada("Plaza Central"),
+        Parada("Estación Norte", esFinal = true)
+    )
+
+    val paradasTren = listOf(
+        Parada("Estación Belén"),
+        Parada("Estación Centro"),
+        Parada("Estación Yumbo", esFinal = true)
+    )
+
+    // Crear rutas
+    val rutaBus = Ruta(paradasBus, bus1)
+    val rutaTren = Ruta(paradasTren, tren1)
+
+    // Abordar pasajeros
+    adulto1.abordar(bus1)
+    niño1.abordar(bus1)
+
+    adulto1.abordar(tren1)
+    niño1.abordar(tren1) // Niño no puede abordar tren
+
+    // Operar vehículos
+    operarVehiculos(listOf(bus1, tren1))
+
+    // Conectar tren (por ser Conectable)
+    tren1.conectar()
+
+    // Recorrer rutas
+    rutaBus.recorrerRuta()
+    CentroControl.finalizarRuta(bus1)
+
+    rutaTren.recorrerRuta()
+    tren1.desconectar()
+    CentroControl.finalizarRuta(tren1)
+
+    // Pasajeros bajan
+    adulto1.bajar(bus1)
+    niño1.bajar(bus1)
+
+    adulto1.bajar(tren1)
+    niño1.bajar(tren1) // Niño no abordó el tren
+
+    // Mostrar estadísticas finales
+    CentroControl.mostrarEstadisticas()
