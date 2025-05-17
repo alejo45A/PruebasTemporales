@@ -1,0 +1,76 @@
+EJERCICIO A
+
+Muestra un solo texto que diga "¡Bienvenido a Jetpack!" completamente centrado en la pantalla.
+
+@Composable
+fun EjercicioA(){
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(15.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center    
+    ){
+        Text(
+            text = "Bienvenido a Jetpack",
+            fontSize = 12.sp
+        )
+    }
+}
+
+EJERCICIO B
+
+Muestra dos textos en una misma fila que digan:
+"Nombre:"
+"Carlos Mendoza"
+Coloca una separación pequeña entre ellos.
+
+
+@Composable
+fun EjercicioB(){
+    Row(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(15.dp),
+        horizontalArrangement = Arrangement.SpaceBetween,
+    ){
+        Text(text = "Nombre: ", color = Color.Red, fontWeight = FontWeight.SemiBold)
+        Text(text = "Carlos Mendoza", fontSize = 20.sp)
+    }
+}
+
+
+
+EJERCICIO C
+
+Crea un cuadro (Box) con fondo azul y tamaño 200x200. Superpone un texto en el centro que diga "Perfil".
+
+
+EJERCICIO D
+
+Muestra tres textos en columna: "Inicio", "Buscar", "Ajustes". Distribúyelos con el mismo espacio entre cada uno y los bordes del contenedor.
+
+EJERCICIO E
+
+Usa filas y columnas para mostrar una cuadrícula con los textos:
+
+1     2
+3     4
+
+Todos deben estar centrados horizontalmente.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

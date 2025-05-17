@@ -1,0 +1,61 @@
+// contentAlignment -> BOX
+
+Se usa en el contenedor Box para alinear todo el contenido interno de este
+Se usa comunmente con:
+
+    Alignment.TopStart → arriba a la izquierda
+
+    Alignment.TopCenter → arriba al centro
+
+    Alignment.Center → centro exacto
+
+    Alignment.BottomEnd → abajo a la derecha
+
+//---------------------------------------------------------------------------------------
+
+// horizontalAlignment -> COLUMN
+
+Se usa en el contenedor Column para alinear los elementos horizontalmente.
+Se usa comunmente con:
+
+    Alignment.Start → alinea a la izquierda
+
+    Alignment.End → alinea a la derecha
+
+    Alignment.CenterHorizontally → al centro
+
+//---------------------------------------------------------------------------------------
+
+// verticalArrangement -> COLUMN
+
+Se usa en el contenedor Column para alinear los elementos verticalmente
+Se usa comunmente con:
+
+    Arrangement.Top: Todos los elementos se colocan arriba. 
+
+    Arrangement.Center: Todos se centran verticalmente. 
+
+    Arrangement.SpaceEvenly: Espacio igual entre y fuera de los elementos. 
+
+//---------------------------------------------------------------------------------------
+
+// verticalAlignment -> ROW
+
+Se usa en el contenedor Row para alinear los elementos verticalmente.
+Se usa comunmente con:
+
+    Alignment.Top: Alinea arriba. 
+
+    Alignment.CenterVertically: Centrado vertical. 
+
+    Alignment.Bottom: Alinea abajo. 
+
+// horizontalArrangement -> ROW
+
+Se usa en el contenedor Row para alinear los elementos horizontalmente. 
+
+    Arrangement.Start: Todos a la izquierda. 
+
+    Arrangement.SpaceBetween: Espacio solo entre ellos. 
+
+    Arrangement.SpaceEvenly: Espacio igual entre y fuera. 

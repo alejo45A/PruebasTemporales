@@ -1,0 +1,53 @@
+// EJERCICIO 1
+
+@Composable
+fun Ejercicio(){
+    Column(modifier = Modifier
+        .fillMaxSize()
+        .padding(15.dp),
+    verticalArrangement = Arrangement.Center,
+    horizontalAlignment = Alignment.CenterHorizontally
+    ){
+        Text(text = "Bienvenido")
+        Text(text = "A la aplicacion de vuelo")
+        Text(text = "Inicia sesión para continuar")
+    }
+}
+
+// EJERCICIO 2
+
+
+@Composable
+fun EjercicioUno(){
+    Row(modifier = Modifier
+        .fillMaxHeight()
+        .padding(15.dp),
+    verticalAlignment = Alignment.CenterVertically
+    ){
+        Text(text = "Nombre: ")
+        Text(text = "Juan Perez")
+    }
+}
+
+// EJERCICIO 3
+
+@Composable
+fun EjercicioDos(){
+    Box(modifier = Modifier
+        .size(200.dp)
+        .background(Color.Blue),
+    contentAlignment = Alignment.Center
+    ){
+        Image(
+            painter = painterResource(id = R.drawable.logo),
+            contentDescription = "Logo de la app",
+            modifier = Modifier
+                .size(100.dp)
+        )
+        Text(
+            text = "Perfil"
+            fonrSize = 20.sp
+        )
+    }
+}
+
