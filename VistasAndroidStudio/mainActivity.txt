@@ -51,3 +51,36 @@ fun EjercicioDos(){
     }
 }
 
+//EJERCICIO 4
+
+@Composable
+fun Ejercicio(){
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(15.dp)
+            .border(2.dp, Color.Black),,
+        contentAlignment = Alignment.Center
+    ){
+        Text(text = "Hola JetPack")
+    }
+}
+
+//EJERCICIO 5
+
+@Composable
+fun Ejercicio(){
+    Row(
+        modifier = Modifier
+            .padding(15.dp)
+            .fillMaxSize()
+            .border(2.dp, Color.Black),
+        horizontalArrangement = Arrangement.SpaceBetween
+
+    ){
+        Text(text="UNO")
+        Text(text="DOS")
+        Text(text="TRES")
+    }
+}
+
